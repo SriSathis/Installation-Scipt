@@ -1,0 +1,30 @@
+echo "{ \"insecure-registries\" : [\"alineconsulting:5000\"] }" > /etc/docker/daemon/json
+
+systemctl restart docker
+
+echo "192.168.2.19    alineconsulting" >> /etc/hosts
+
+mkdir -p /home/alineuser/share/docker/mount_dir/elastic_env
+cp -rf /root/.kube/config /home/alineuser/share/docker/mount_dir/elastic_env/
+cp -rf /root/.ssh/id_rsa /home/alineuser/share/docker/mount_dir/elastic_env/
+
+cat <<EOT >> /home/alineuser/share/docker/mount_dir/elastic_env/env.txt
+TOKEN_EXPIRATION=55
+TOKEN_SECRET=Aline-secret-key
+LOG_INFO_TIME=1
+LOG_ENABLE=true
+FILE_EXT=/tab/csv/xlsx
+TEMP_PATH=/tmp/
+APP_PORT=8082
+ENV_MGMT_URL=http://192.168.2.81
+MASTER=192.168.2.81
+ENV_MGMT_PORT=9000
+REGISRTY_URL=http://192.168.2.19:5000/v2/_catalog
+BINARY_URL=http://192.168.2.81:8080/hoster/envmgmt
+EOT
+
+
+
+docker rm -f Env-Mgmt;docker run -p 9000:80 -v /home/alineuser/share/docker/mount_dir/elastic_env:/elastic_env:rw -v /home/alineuser/share/docker/mount_dir/builds:/builds:rw -v /home/alineuser/share/docker/mount_dir/logs:/logs:rw --name=Env-Mgmt -d alineconsulting:5000/gokul/env-management /bin/bash init
+
+kubectl label node node1 deploy=nginx
