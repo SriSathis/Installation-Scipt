@@ -21,6 +21,7 @@ MASTER=192.168.2.81
 ENV_MGMT_PORT=9000
 REGISRTY_URL=http://192.168.2.19:5000/v2/_catalog
 BINARY_URL=http://192.168.2.81:8080/hoster/envmgmt
+CONTAINER_IMAGE_URL=alineconsulting:5000/gokul/
 EOT
 
 
