@@ -26,6 +26,13 @@ EOT
 
 
 
-docker rm -f Env-Mgmt;docker run -p 9000:80 -v /home/alineuser/share/docker/mount_dir/elastic_env:/elastic_env:rw -v /home/alineuser/share/docker/mount_dir/builds:/builds:rw -v /home/alineuser/share/docker/mount_dir/logs:/logs:rw --name=Env-Mgmt -d alineconsulting:5000/gokul/env-management /bin/bash init
+docker rm -f Env-Mgmt;docker run \
+-p 9000:80 \
+-v /home/alineuser/share/docker/mount_dir/elastic_env:/elastic_env:rw \
+-v /home/alineuser/share/docker/mount_dir/builds:/builds:rw \
+-v /home/alineuser/share/docker/mount_dir/logs:/logs:rw \
+--name=Env-Mgmt \
+-d alineconsulting:5000/gokul/env-management \
+/bin/bash init 
 
 kubectl label node node1 deploy=nginx
