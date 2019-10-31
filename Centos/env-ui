@@ -1,8 +1,8 @@
-echo "{ \"insecure-registries\" : [\"alineconsulting:5000\"] }" > /etc/docker/daemon/json
+echo "{ \"insecure-registries\" : [\"registry.gokul.com:5000\"] }" > /etc/docker/daemon/json
 
 systemctl restart docker
 
-echo "192.168.2.19    alineconsulting" >> /etc/hosts
+echo "192.168.2.19    registry.gokul.com" >> /etc/hosts
 
 mkdir -p /home/alineuser/share/docker/mount_dir/elastic_env
 cp -rf /root/.kube/config /home/alineuser/share/docker/mount_dir/elastic_env/
@@ -21,7 +21,7 @@ MASTER=192.168.2.81
 ENV_MGMT_PORT=9000
 REGISRTY_URL=http://192.168.2.19:5000/v2/_catalog
 BINARY_URL=http://192.168.2.81:8080/hoster/envmgmt
-CONTAINER_IMAGE_URL=alineconsulting:5000/gokul/
+CONTAINER_IMAGE_URL=registry.gokul.com:5000/gokul/
 EOT
 
 
@@ -32,7 +32,7 @@ docker rm -f Env-Mgmt;docker run \
 -v /home/alineuser/share/docker/mount_dir/builds:/builds:rw \
 -v /home/alineuser/share/docker/mount_dir/logs:/logs:rw \
 --name=Env-Mgmt \
--d alineconsulting:5000/gokul/env-management \
+-d registry.gokul.com:5000/gokul/env-management \
 /bin/bash init 
 
 kubectl label node node1 deploy=nginx
