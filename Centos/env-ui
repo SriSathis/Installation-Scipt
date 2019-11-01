@@ -1,7 +1,7 @@
 echo "{ \"insecure-registries\" : [\"registry.gokul.com:5000\"] }" > /etc/docker/daemon.json
 
 echo "192.168.2.19    registry.gokul.com" >> /etc/hosts
-
+ 
 systemctl restart docker
 
 mkdir -p /home/alineuser/share/docker/mount_dir/elastic_env
