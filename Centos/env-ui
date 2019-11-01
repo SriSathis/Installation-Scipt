@@ -24,8 +24,6 @@ BINARY_URL=http://192.168.2.81:8080/hoster/envmgmt
 CONTAINER_IMAGE_URL=registry.gokul.com:5000/gokul/
 EOT
 
-
-
 docker rm -f Env-Mgmt;docker run \
 -p 9000:80 \
 -v /home/alineuser/share/docker/mount_dir/elastic_env:/elastic_env:rw \
@@ -36,3 +34,12 @@ docker rm -f Env-Mgmt;docker run \
 /bin/bash init 
 
 kubectl label node node1 deploy=nginx
+
+#Start Logger:
+docker rm -f logmanager; docker run  \
+-v /home/alineuser/share/docker/mount_dir/logs:/var/www/html/hoster/logs:rw \
+-p 8081:50010 \
+--restart unless-stopped \
+--name=logmanager \
+-d ns556507.ip-54-39-18.net:5000/gokul/hoster \
+/bin/bash init
