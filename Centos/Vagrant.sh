@@ -1,7 +1,7 @@
 yum -y install gcc dkms make qt libgomp patch
 yum -y install kernel-headers kernel-devel binutils glibc-headers glibc-devel font-forge
 
-cd /etc/yum.repo.d/
+cd /etc/yum.repos.d/
 wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
 
 yum install -y VirtualBox-6.0
